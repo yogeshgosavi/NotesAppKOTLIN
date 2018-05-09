@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="action_settings">Delete</string>
+    <string name="title_activity_create"></string>
+</resources>
