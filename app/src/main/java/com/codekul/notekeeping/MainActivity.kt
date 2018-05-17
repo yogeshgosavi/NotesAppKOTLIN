@@ -18,8 +18,7 @@ import java.io.File
 class MainActivity : AppCompatActivity() {
     var rawDT : ArrayList<String> = ArrayList()
     final private val RESULT_CODE = 11;
-
-
+    var  adapter: ArrayAdapter<String>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,13 +27,13 @@ class MainActivity : AppCompatActivity() {
             var  i = Intent(this,CreateActivity::class.java)
             startActivity(i)
         }
+            updateList()
 
-        filesDir.list().forEach {
-            rawDT.add(it.removeSuffix(".txt"))
-        }
+          adapter = ArrayAdapter<String>(this@MainActivity,android.R.layout.simple_list_item_1,rawDT)
+//        var adapter =myAdapter(this,rawDT)
+            ListFiles.adapter = adapter
 
-        var adapter = ArrayAdapter<String>(this@MainActivity,android.R.layout.simple_list_item_1,rawDT)
-        ListFiles.adapter = adapter
+
 
     ListFiles.setOnItemClickListener { parent, view, position, id ->
             val intent = Intent(this,CreateActivity::class.java)
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             var file = File("$filesDir/${rawDT.get(position)}.txt")
             file.delete()
             Toast.makeText(this,"removed note : "+rawDT.get(position) , Toast.LENGTH_LONG).show()
-            adapter.remove(adapter.getItem(position))
+            adapter?.remove(adapter?.getItem(position))
             true }
 
      //       (ListFiles.adapter as ArrayAdapter<String>).notifyDataSetChanged()
@@ -60,26 +59,34 @@ class MainActivity : AppCompatActivity() {
 
         when (requestCode) {
             RESULT_CODE -> if (resultCode == Activity.RESULT_OK) {
-                (ListFiles.adapter as ArrayAdapter<String>).notifyDataSetChanged() //if ui is not getting updated use this
+                updateList()
+//                (ListFiles.adapter as ArrayAdapter<String>).notifyDataSetChanged() //if ui is not getting updated use this
             }
         }
     }
 
     override fun onResume() {
+        updateList()
         super.onResume()
     }
 
     override fun onRestart() {
+        updateList()
         super.onRestart()
     }
 
+    override fun onBackPressed() {
+       updateList()
+        super.onBackPressed()
+    }
 
-
+    fun  updateList(){
+        rawDT.clear()
+        filesDir.list().forEach {
+            rawDT.add(it.removeSuffix(".txt"))
+        }
+        adapter?.notifyDataSetChanged()
 
 
     }
-
-
-
-
-
+}

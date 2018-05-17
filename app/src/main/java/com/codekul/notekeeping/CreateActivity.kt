@@ -1,6 +1,8 @@
 package com.codekul.notekeeping
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -32,7 +34,6 @@ class CreateActivity : AppCompatActivity() {
         }
 
 
-
         fab.setOnClickListener { view ->
             var file_name = titleofNote.text.toString()
             var file_details = description.text.toString()
@@ -46,9 +47,17 @@ class CreateActivity : AppCompatActivity() {
     }
 
     fun saveNote(filename:String, filedetails:String){
-        openFileOutput("$filename.txt", Context.MODE_PRIVATE).use {
-            it.write(filedetails.toByteArray())
+        if(filename.isNotBlank() && filedetails.isNotBlank()){
+            openFileOutput("$filename.txt", Context.MODE_PRIVATE).use {
+                it.write(filedetails.toByteArray())
+            }
         }
+        else {
+
+
+        }
+
+
     }
 
     fun retrieve(filename: String) {

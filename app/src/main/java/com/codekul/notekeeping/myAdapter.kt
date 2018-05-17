@@ -31,12 +31,13 @@ class myAdapter (
         )
 
         vw.txt.text = rawData[position].txt
-
+        notifyDataSetChanged()
         return vw
     }
 
     override fun getItem(position: Int): Any {
         return rawData[position]
+
     }
 
     override fun getItemId(position: Int): Long {
