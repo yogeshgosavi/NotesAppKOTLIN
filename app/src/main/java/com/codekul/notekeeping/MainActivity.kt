@@ -78,10 +78,10 @@ class MainActivity : AppCompatActivity(), ItemRowListener{
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_view, menu)
 
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu.findItem(R.id.search).actionView as SearchView
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(componentName))
+//        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+//        val searchView = menu.findItem(R.id.search_view).actionView as SearchView
+//        searchView.setSearchableInfo(
+//                searchManager.getSearchableInfo(componentName))
 
         return true
     }
