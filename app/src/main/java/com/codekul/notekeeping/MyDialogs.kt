@@ -25,15 +25,35 @@ private const val ARG_PARAM2 = "param2"
 class MyDialogs : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         when (tag) {
-            "FileBlank" -> {
+            "title blank" -> {
                 return AlertDialog.Builder(activity as Context)
-                        .setTitle("Title")
-                        .setMessage("MESSAGE")
-                        .setIcon(R.mipmap.ic_launcher)
-                        .setPositiveButton("Okay",
-                                { dialog, which -> Log.i("@MSG", "okay") })
-                        .setNegativeButton("Cancel",
-                                { dialog, which -> Log.i("@MSG", "Cancel") }).create()
+                        .setTitle("You need to have Title")
+                        .setMessage("Please enter title to save note")
+                        .setPositiveButton("Sure",
+                                { dialog, which -> null })
+                        .create()
+            }
+
+            "data empty" ->{
+                return  AlertDialog.Builder(activity as Context)
+                        .setTitle("You need to Enter data")
+                        .setMessage("Please enter data to save note")
+                        .setPositiveButton("Sure",
+                                { dialog, which -> null })
+                        .create()
+            }
+            "delete" ->{
+                return  AlertDialog.Builder(activity as Context)
+                        .setTitle("You Sure you want to delete this note ?")
+                        .setMessage("You can't recover it after it's done")
+                        .setIcon(R.drawable.ic_delete_black_24dp)
+                        .setPositiveButton("Sure",
+                                { dialog, which -> null })
+                        .setNegativeButton("No Thanks",{
+                            dialog, which -> null
+                        })
+                        .create()
+
             }
         }
 

@@ -6,10 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.codekul.notekeeping.MainActivity"
+    android:padding="8dp"
+    android:layout_marginTop="50dp"
     tools:showIn="@layout/activity_main">
 
-        <ListView
-            android:id="@+id/ListFiles"
+        <!--<ListView-->
+            <!--android:id="@+id/ListFiles"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
+        <android.support.v4.widget.SwipeRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swipe_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+            android:id="@+id/cardview_note"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

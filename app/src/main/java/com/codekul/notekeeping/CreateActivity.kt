@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.nfc.Tag
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -35,13 +36,23 @@ class CreateActivity : AppCompatActivity() {
 
 
         fab.setOnClickListener { view ->
+
+
             var file_name = titleofNote.text.toString()
             var file_details = description.text.toString()
-            saveNote(file_name,file_details)
-            Snackbar.make(view, "Your Note Saved", Snackbar.LENGTH_LONG)
-                    .setAction("Go Back", {
-                       back()
-                    }).show()
+            if(file_name.equals("")){
+               showDialog("title blank")
+            }else if (file_details.equals("")){
+                showDialog("data empty")
+            }else if(file_name.isNotBlank() && file_details.isNotBlank()){
+                saveNote(file_name,file_details)
+                Snackbar.make(view, "Your Note Saved", Snackbar.LENGTH_LONG)
+                        .setAction("Go Back", {
+                            back()
+                        }).show()
+            }
+
+
         }
 
     }
@@ -103,10 +114,9 @@ class CreateActivity : AppCompatActivity() {
 
     fun back() {
         val backInt = Intent()
-//        val bndl = Bundle()
-//        bndl.putInt("hello",123)
-//        backInt.putExtras(bndl)
         setResult(Activity.RESULT_OK, backInt)
         finish()
-    }
+}
+    fun showDialog(tag : String) = MyDialogs().show(supportFragmentManager,tag)
+
 }
